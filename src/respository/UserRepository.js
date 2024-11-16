@@ -20,9 +20,14 @@ export class RepositoryClient{
    
   }
   async pegarTodos (){
-    const connection = ConexaoPrisma.gerarConexao()
-    const todosOsClientes = await connection.cliente.findMany()
-    return todosOsClientes
+    try{
+      const connection = ConexaoPrisma.gerarConexao()
+      const todosOsClientes = await connection.cliente.findMany()
+      return todosOsClientes
+      
+    }catch(error){
+       throw new Error("erro interno do servidor")
+    }
   }
 }
 

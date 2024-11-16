@@ -1,5 +1,5 @@
 import { RepositoryClient } from "../respository/UserRepository"
-const {criarClient} = new RepositoryClient()
+const {criarClient,pegarTodos} = new RepositoryClient()
 
 export class ClientContrller{
  static async criar(request,response){
@@ -17,7 +17,12 @@ export class ClientContrller{
 
 
   }
-  static async pegarTodos(){
-    
+  static async pegarTodos(response,request){
+    try{
+      const todosOsClientes = await pegarTodos()
+      response.json(todosOsClientes).status(200)
+    }catch(error){
+    response.status(500).json("erro interno do servidor")
+    }
   }
 }
